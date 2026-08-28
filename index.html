@@ -2,57 +2,150 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Python Terminal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.28.2/full/pyodide.js"></script>
+    <title>Good Morning Rahul</title>
 
     <style>
-        body {
-            margin: 0;
-            background: #000;
-            color: #00ff00;
-            font-family: monospace;
-            font-size: 18px;
-            padding: 20px;
+        * {
+            box-sizing: border-box;
         }
 
-        #terminal {
-            white-space: pre-wrap;
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            background: black;
+            font-family: Arial, sans-serif;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .glow {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+
+            background: rgba(255, 180, 60, 0.18);
+            filter: blur(80px);
+
+            opacity: 0;
+            animation: glow 3s ease forwards;
+            animation-delay: 2s;
+        }
+
+        .popup {
+            position: relative;
+            width: 85%;
+            max-width: 360px;
+
+            padding: 40px 20px;
+            text-align: center;
+
+            background: rgba(20, 20, 20, 0.96);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 24px;
+
+            box-shadow: 0 0 50px rgba(255,180,60,0.15);
+
+            opacity: 0;
+            transform: scale(0.7);
+
+            animation: popup 1.2s ease forwards;
+            animation-delay: 2.5s;
+        }
+
+        h1 {
+            margin: 0;
+            color: white;
+            font-size: 29px;
+            letter-spacing: 1px;
+        }
+
+        .name {
+            color: #ffcc66;
+        }
+
+        p {
+            margin: 18px 0 25px;
+            color: #aaa;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+
+            background: white;
+            color: black;
+
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        @keyframes popup {
+            0% {
+                opacity: 0;
+                transform: scale(0.7);
+            }
+
+            70% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1.3);
+            }
         }
     </style>
 </head>
 
 <body>
 
-<div id="terminal">Starting Python...</div>
+    <div class="glow"></div>
 
-<script>
-async function runPython() {
+    <div class="popup">
 
-    const terminal = document.getElementById("terminal");
-    let output = "";
+        <h1>
+            🌅 Good Morning<br>
+            <span class="name">Rahul ❤️</span>
+        </h1>
 
-    const pyodide = await loadPyodide();
+        <p>
+            Wake up, Rahul! ☀️<br>
+            Wishing you a beautiful<br>
+            and peaceful day ✨
+        </p>
 
-    pyodide.setStdout({
-        batched: function(text) {
-            output += text + "\n";
-            terminal.textContent = output;
-            window.scrollTo(0, document.body.scrollHeight);
+        <button onclick="closePopup()">
+            Have a Great Day ❤️
+        </button>
+
+    </div>
+
+    <script>
+        function closePopup() {
+            document.querySelector(".popup").style.display = "none";
         }
-    });
-
-    await pyodide.runPythonAsync(`
-A = 1
-
-while A <= 1000:
-    print("hello")
-    A += 1
-    `);
-}
-
-runPython();
-</script>
+    </script>
 
 </body>
 </html>
