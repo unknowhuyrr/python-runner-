@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Python Terminal</title>
+
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.28.2/full/pyodide.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            color: #00ff00;
+            font-family: monospace;
+            font-size: 18px;
+            padding: 20px;
+        }
+
+        #terminal {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="terminal">Starting Python...</div>
+
+<script>
+async function runPython() {
+
+    const terminal = document.getElementById("terminal");
+    let output = "";
+
+    const pyodide = await loadPyodide();
+
+    pyodide.setStdout({
+        batched: function(text) {
+            output += text + "\n";
+            terminal.textContent = output;
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    });
+
+    await pyodide.runPythonAsync(`
+A = 1
+
+while A <= 1000:
+    print("hello")
+    A += 1
+    `);
+}
+
+runPython();
+</script>
+
+</body>
+</html>
