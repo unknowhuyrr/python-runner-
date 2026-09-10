@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Village Morning 🌅</title>
+<title>For You ❤️</title>
 
 <style>
 * {
@@ -16,516 +16,435 @@ html, body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: #06131c;
-    font-family: Georgia, serif;
+    background: #000;
 }
 
-.scene {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-
-    background:
-        linear-gradient(
-            to bottom,
-            #061522 0%,
-            #17384d 30%,
-            #9d5545 57%,
-            #e49b5b 73%,
-            #60934f 100%
-        );
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
 }
 
-/* ---------------- SUN ---------------- */
+/* Background */
 
-.sun {
-    position: absolute;
-
-    width: 105px;
-    height: 105px;
-
-    border-radius: 50%;
-
-    background: #ff5835;
-
-    box-shadow:
-        0 0 25px #ff7045,
-        0 0 70px rgba(255,100,40,.7),
-        0 0 130px rgba(255,130,60,.35);
-
-    left: 50%;
-    top: 72%;
-
-    transform: translate(-50%, -50%);
-
-    animation: sunrise 8s ease-out forwards;
-}
-
-@keyframes sunrise {
-
-    0% {
-        top: 82%;
-        opacity: 0;
-        transform: translate(-50%, 0) scale(.65);
-    }
-
-    100% {
-        top: 40%;
-        opacity: 1;
-        transform: translate(-50%, 0) scale(1);
-    }
-}
-
-/* ---------------- LIGHT ---------------- */
-
-.light {
-    position: absolute;
+#canvas {
+    position: fixed;
     inset: 0;
-
-    background:
-        radial-gradient(
-            circle at 50% 40%,
-            rgba(255,180,90,.3),
-            transparent 38%
-        );
-
-    opacity: 0;
-
-    animation: lightAppear 7s ease forwards;
-}
-
-@keyframes lightAppear {
-
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-/* ---------------- DISTANT LAND ---------------- */
-
-.land {
-    position: absolute;
-
-    bottom: 34%;
     width: 100%;
-    height: 150px;
-
-    background:
-        radial-gradient(
-            ellipse at 15% 100%,
-            #285438 0 35%,
-            transparent 36%
-        ),
-        radial-gradient(
-            ellipse at 45% 100%,
-            #234d35 0 38%,
-            transparent 39%
-        ),
-        radial-gradient(
-            ellipse at 80% 100%,
-            #1d4931 0 40%,
-            transparent 41%
-        );
-}
-
-/* ---------------- RIVER ---------------- */
-
-.river {
-    position: absolute;
-
-    bottom: -5%;
-    left: 30%;
-
-    width: 40%;
-    height: 70%;
-
-    background:
-        linear-gradient(
-            90deg,
-            #235b65,
-            #4f9aa0,
-            #27626b
-        );
-
-    clip-path: polygon(
-        43% 0,
-        57% 0,
-        100% 100%,
-        0 100%
-    );
-
-    opacity: .95;
-
-    box-shadow:
-        inset 0 0 35px rgba(255,255,255,.18);
-}
-
-/* Moving water */
-
-.water {
-    position: absolute;
-
-    width: 160%;
     height: 100%;
-
-    left: -30%;
-
-    background:
-        repeating-linear-gradient(
-            170deg,
-            transparent 0px,
-            transparent 18px,
-            rgba(255,255,255,.22) 19px,
-            transparent 21px,
-            transparent 40px
-        );
-
-    animation: waterMove 2.5s linear infinite;
 }
 
-@keyframes waterMove {
-
-    from {
-        transform: translateX(-30px);
-    }
-
-    to {
-        transform: translateX(30px);
-    }
-}
-
-/* ---------------- FIELDS ---------------- */
-
-.field {
-    position: absolute;
-
-    bottom: 0;
-    width: 100%;
-    height: 35%;
-
-    background:
-        repeating-linear-gradient(
-            165deg,
-            #4b8b43 0px,
-            #4b8b43 13px,
-            #356f39 14px,
-            #356f39 27px
-        );
-
-    animation: grassMove 4s ease-in-out infinite alternate;
-}
-
-@keyframes grassMove {
-
-    from {
-        transform: skewX(-1deg);
-    }
-
-    to {
-        transform: skewX(1deg);
-    }
-}
-
-/* ---------------- VILLAGE HOUSE ---------------- */
-
-.house {
-    position: absolute;
-
-    bottom: 31%;
-    left: 9%;
-
-    width: 115px;
-    height: 75px;
-
-    background: #a96845;
-
-    box-shadow:
-        inset 0 0 20px rgba(0,0,0,.3);
-}
-
-.roof {
-    position: absolute;
-
-    top: -42px;
-    left: -18px;
-
-    width: 150px;
-    height: 55px;
-
-    background: #553528;
-
-    clip-path: polygon(
-        50% 0,
-        100% 100%,
-        0 100%
-    );
-}
-
-.door {
-    position: absolute;
-
-    bottom: 0;
-    left: 45px;
-
-    width: 25px;
-    height: 45px;
-
-    background: #33231c;
-}
-
-/* ---------------- TREES ---------------- */
-
-.tree {
-    position: absolute;
-    bottom: 30%;
-}
-
-.tree1 {
-    right: 8%;
-}
-
-.tree2 {
-    right: 20%;
-    transform: scale(.75);
-}
-
-.trunk {
-    width: 17px;
-    height: 90px;
-
-    margin: auto;
-
-    background: #4b3023;
-}
-
-.leaves {
-    width: 110px;
-    height: 110px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle at 30% 30%,
-            #6da94d,
-            transparent 35%
-        ),
-        radial-gradient(
-            circle at 70% 30%,
-            #3e833d,
-            transparent 40%
-        ),
-        #286536;
-
-    box-shadow:
-        20px 10px 0 #347438,
-        -18px 15px 0 #397c3c;
-}
-
-/* ---------------- MIST ---------------- */
-
-.mist {
-    position: absolute;
-
-    left: -20%;
-    bottom: 30%;
-
-    width: 140%;
-    height: 80px;
-
-    background: rgba(255,255,255,.12);
-
-    filter: blur(25px);
-
-    animation: mistMove 10s linear infinite;
-}
-
-@keyframes mistMove {
-
-    from {
-        transform: translateX(-5%);
-    }
-
-    to {
-        transform: translateX(10%);
-    }
-}
-
-/* ---------------- BIRDS ---------------- */
-
-.bird {
-    position: absolute;
-
-    font-size: 23px;
-
-    color: #111;
-
-    opacity: 0;
-
-    animation: birdFly 7s linear infinite;
-}
-
-.bird1 {
-    top: 23%;
-    left: -10%;
-    animation-delay: 2s;
-}
-
-.bird2 {
-    top: 17%;
-    left: -20%;
-    font-size: 17px;
-    animation-delay: 4s;
-}
-
-.bird3 {
-    top: 30%;
-    left: -15%;
-    font-size: 19px;
-    animation-delay: 5.5s;
-}
-
-@keyframes birdFly {
-
-    0% {
-        transform: translate(0,20px);
-        opacity: 0;
-    }
-
-    10% {
-        opacity: 1;
-    }
-
-    50% {
-        transform: translate(55vw,-30px);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translate(120vw,20px);
-        opacity: 0;
-    }
-}
-
-/* ---------------- MESSAGE ---------------- */
+/* Center content */
 
 .message {
     position: absolute;
-
-    top: 11%;
-    width: 100%;
-
     text-align: center;
 
     color: white;
 
     opacity: 0;
+    transform: scale(.5);
+
+    animation: showMessage 2s ease forwards;
+    animation-delay: 5s;
 
     text-shadow:
-        0 2px 12px rgba(0,0,0,.8);
+        0 0 10px rgba(255,255,255,.8),
+        0 0 30px rgba(255,50,100,.7);
+}
 
-    animation: messageShow 4s ease forwards;
-    animation-delay: 12s;
+.message .heart {
+    font-size: 75px;
+
+    display: block;
+
+    animation:
+        heartbeat 1.2s infinite;
 }
 
 .message h1 {
-    margin: 0;
+    margin: 10px 0 0;
 
-    font-size: clamp(30px,7vw,55px);
+    font-size: clamp(25px, 7vw, 48px);
 
     letter-spacing: 3px;
 }
 
 .message p {
-    margin-top: 12px;
+    margin-top: 10px;
 
-    font-size: 16px;
+    font-size: 15px;
 
     letter-spacing: 2px;
+
+    opacity: .75;
 }
 
-@keyframes messageShow {
+@keyframes showMessage {
 
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: scale(.5);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: scale(1);
     }
 }
 
-/* ---------------- VIGNETTE ---------------- */
+@keyframes heartbeat {
 
-.vignette {
-    position: absolute;
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.18);
+    }
+}
+
+/* Small screen effect */
+
+.flash {
+    position: fixed;
     inset: 0;
+
+    background: white;
+
+    opacity: 0;
 
     pointer-events: none;
 
-    box-shadow:
-        inset 0 0 120px rgba(0,0,0,.65);
+    animation: flash .7s ease;
+    animation-delay: 4.8s;
+}
+
+@keyframes flash {
+
+    0% {
+        opacity: 0;
+    }
+
+    20% {
+        opacity: .12;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="scene">
+<canvas id="canvas"></canvas>
 
-    <div class="light"></div>
+<div class="flash"></div>
 
-    <div class="sun"></div>
+<div class="message">
 
-    <!-- River is present from the beginning -->
-    <div class="river">
-        <div class="water"></div>
-    </div>
+    <span class="heart">❤️</span>
 
-    <div class="land"></div>
+    <h1>For You</h1>
 
-    <div class="mist"></div>
-
-    <div class="field"></div>
-
-    <!-- Village house -->
-    <div class="house">
-        <div class="roof"></div>
-        <div class="door"></div>
-    </div>
-
-    <!-- Trees -->
-    <div class="tree tree1">
-        <div class="leaves"></div>
-        <div class="trunk"></div>
-    </div>
-
-    <div class="tree tree2">
-        <div class="leaves"></div>
-        <div class="trunk"></div>
-    </div>
-
-    <!-- Birds -->
-    <div class="bird bird1">⌁⌁</div>
-    <div class="bird bird2">⌁⌁</div>
-    <div class="bird bird3">⌁⌁</div>
-
-    <!-- Final message -->
-    <div class="message">
-        <h1>Good Morning 🌅</h1>
-        <p>A beautiful new day begins...</p>
-    </div>
-
-    <div class="vignette"></div>
+    <p>Some feelings need no words ✨</p>
 
 </div>
+
+<script>
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+let width;
+let height;
+
+function resize() {
+
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+
+}
+
+resize();
+
+window.addEventListener("resize", resize);
+
+
+/* --------------------------------
+   PARTICLES
+-------------------------------- */
+
+const particles = [];
+
+for (let i = 0; i < 140; i++) {
+
+    particles.push({
+
+        x: Math.random() * width,
+
+        y: Math.random() * height,
+
+        size: Math.random() * 2 + .5,
+
+        speed: Math.random() * .5 + .1,
+
+        alpha: Math.random(),
+
+        twinkle: Math.random() * .05
+
+    });
+
+}
+
+
+/* --------------------------------
+   HEART POSITION
+-------------------------------- */
+
+function heartPosition(t, scale) {
+
+    const x =
+        16 * Math.pow(Math.sin(t), 3);
+
+    const y =
+        -(13 * Math.cos(t)
+        - 5 * Math.cos(2*t)
+        - 2 * Math.cos(3*t)
+        - Math.cos(4*t));
+
+    return {
+
+        x: width / 2 + x * scale,
+
+        y: height / 2 + y * scale
+
+    };
+
+}
+
+
+/* --------------------------------
+   HEART PARTICLES
+-------------------------------- */
+
+const hearts = [];
+
+for (let i = 0; i < 220; i++) {
+
+    const t =
+        Math.random() * Math.PI * 2;
+
+    const pos =
+        heartPosition(
+            t,
+            Math.min(width, height) / 35
+        );
+
+    hearts.push({
+
+        x: Math.random() * width,
+
+        y: Math.random() * height,
+
+        targetX: pos.x,
+
+        targetY: pos.y,
+
+        size: Math.random() * 3 + 1,
+
+        delay: Math.random() * 3,
+
+        progress: 0
+
+    });
+
+}
+
+
+/* --------------------------------
+   DRAW
+-------------------------------- */
+
+let start = performance.now();
+
+function animate(time) {
+
+    const elapsed =
+        (time - start) / 1000;
+
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    /* Stars / particles */
+
+    particles.forEach(p => {
+
+        p.alpha += p.twinkle;
+
+        if (p.alpha > 1 || p.alpha < .1) {
+            p.twinkle *= -1;
+        }
+
+        p.y -= p.speed;
+
+        if (p.y < 0) {
+            p.y = height;
+        }
+
+        ctx.beginPath();
+
+        ctx.arc(
+            p.x,
+            p.y,
+            p.size,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fillStyle =
+            `rgba(255,255,255,${p.alpha})`;
+
+        ctx.fill();
+
+    });
+
+
+    /* Heart formation */
+
+    hearts.forEach(h => {
+
+        let progress =
+            Math.max(
+                0,
+                Math.min(
+                    1,
+                    (elapsed - h.delay) / 2
+                )
+            );
+
+        /* Smooth movement */
+
+        const ease =
+            progress * progress *
+            (3 - 2 * progress);
+
+        const x =
+            h.x +
+            (h.targetX - h.x) * ease;
+
+        const y =
+            h.y +
+            (h.targetY - h.y) * ease;
+
+
+        /* Glow */
+
+        ctx.shadowBlur = 18;
+
+        ctx.shadowColor =
+            "rgba(255,40,100,.9)";
+
+
+        ctx.beginPath();
+
+        ctx.arc(
+            x,
+            y,
+            h.size,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fillStyle =
+            `rgba(255,70,120,${.25 + progress * .75})`;
+
+        ctx.fill();
+
+        ctx.shadowBlur = 0;
+
+    });
+
+
+    /* Large glowing heart outline */
+
+    if (elapsed > 3) {
+
+        const pulse =
+            1 +
+            Math.sin(elapsed * 4) * .03;
+
+        ctx.save();
+
+        ctx.translate(
+            width / 2,
+            height / 2
+        );
+
+        ctx.scale(
+            pulse,
+            pulse
+        );
+
+        ctx.beginPath();
+
+        for (
+            let t = 0;
+            t <= Math.PI * 2;
+            t += .02
+        ) {
+
+            const x =
+                16 * Math.pow(Math.sin(t), 3)
+                * Math.min(width,height) / 35;
+
+            const y =
+                -(13 * Math.cos(t)
+                - 5 * Math.cos(2*t)
+                - 2 * Math.cos(3*t)
+                - Math.cos(4*t))
+                * Math.min(width,height) / 35;
+
+            if (t === 0) {
+                ctx.moveTo(x,y);
+            } else {
+                ctx.lineTo(x,y);
+            }
+
+        }
+
+        ctx.strokeStyle =
+            "rgba(255,80,130,.25)";
+
+        ctx.lineWidth = 1.5;
+
+        ctx.shadowBlur = 25;
+
+        ctx.shadowColor =
+            "rgba(255,40,100,.8)";
+
+        ctx.stroke();
+
+        ctx.restore();
+
+    }
+
+
+    requestAnimationFrame(animate);
+
+}
+
+requestAnimationFrame(animate);
+
+</script>
 
 </body>
 </html>
