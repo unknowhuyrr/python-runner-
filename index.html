@@ -4,135 +4,68 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>For You ❤️</title>
+<title>Walking With A Rose 🌙</title>
 
 <style>
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
 }
 
-html, body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #000;
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#02040a;
 }
 
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
+canvas{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
 }
 
-/* Background */
+.message{
+    position:absolute;
+    bottom:7%;
+    width:100%;
+    text-align:center;
 
-#canvas {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-}
+    color:white;
+    font-family:Georgia,serif;
 
-/* Center content */
-
-.message {
-    position: absolute;
-    text-align: center;
-
-    color: white;
-
-    opacity: 0;
-    transform: scale(.5);
-
-    animation: showMessage 2s ease forwards;
-    animation-delay: 5s;
+    opacity:0;
+    animation:show 3s ease forwards;
+    animation-delay:7s;
 
     text-shadow:
-        0 0 10px rgba(255,255,255,.8),
-        0 0 30px rgba(255,50,100,.7);
+        0 0 10px rgba(190,210,255,.7),
+        0 0 30px rgba(100,130,200,.4);
 }
 
-.message .heart {
-    font-size: 75px;
-
-    display: block;
-
-    animation:
-        heartbeat 1.2s infinite;
+.message h1{
+    margin:0;
+    font-size:clamp(25px,7vw,45px);
+    font-weight:normal;
+    letter-spacing:4px;
 }
 
-.message h1 {
-    margin: 10px 0 0;
-
-    font-size: clamp(25px, 7vw, 48px);
-
-    letter-spacing: 3px;
+.message p{
+    margin-top:10px;
+    font-size:13px;
+    letter-spacing:2px;
+    opacity:.65;
 }
 
-.message p {
-    margin-top: 10px;
-
-    font-size: 15px;
-
-    letter-spacing: 2px;
-
-    opacity: .75;
-}
-
-@keyframes showMessage {
-
-    from {
-        opacity: 0;
-        transform: scale(.5);
+@keyframes show{
+    from{
+        opacity:0;
+        transform:translateY(20px);
     }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes heartbeat {
-
-    0%, 100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.18);
-    }
-}
-
-/* Small screen effect */
-
-.flash {
-    position: fixed;
-    inset: 0;
-
-    background: white;
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    animation: flash .7s ease;
-    animation-delay: 4.8s;
-}
-
-@keyframes flash {
-
-    0% {
-        opacity: 0;
-    }
-
-    20% {
-        opacity: .12;
-    }
-
-    100% {
-        opacity: 0;
+    to{
+        opacity:1;
+        transform:translateY(0);
     }
 }
 </style>
@@ -142,304 +75,695 @@ body {
 
 <canvas id="canvas"></canvas>
 
-<div class="flash"></div>
-
 <div class="message">
-
-    <span class="heart">❤️</span>
-
-    <h1>For You</h1>
-
-    <p>Some feelings need no words ✨</p>
-
+    <h1>Still Walking...</h1>
+    <p>Carrying a rose for someone who isn't here 🌹</p>
 </div>
 
 <script>
 
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
 
-let width;
-let height;
+let W,H;
 
-function resize() {
-
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-
+function resize(){
+    W=canvas.width=window.innerWidth;
+    H=canvas.height=window.innerHeight;
 }
 
 resize();
+window.addEventListener("resize",resize);
 
-window.addEventListener("resize", resize);
 
+/* =========================
+   STARS
+========================= */
 
-/* --------------------------------
-   PARTICLES
--------------------------------- */
+const stars=[];
 
-const particles = [];
+for(let i=0;i<170;i++){
 
-for (let i = 0; i < 140; i++) {
-
-    particles.push({
-
-        x: Math.random() * width,
-
-        y: Math.random() * height,
-
-        size: Math.random() * 2 + .5,
-
-        speed: Math.random() * .5 + .1,
-
-        alpha: Math.random(),
-
-        twinkle: Math.random() * .05
-
+    stars.push({
+        x:Math.random(),
+        y:Math.random()*.65,
+        r:Math.random()*1.5+.2,
+        a:Math.random()
     });
-
 }
 
 
-/* --------------------------------
-   HEART POSITION
--------------------------------- */
+/* =========================
+   CLOUDS
+========================= */
 
-function heartPosition(t, scale) {
+const clouds=[];
 
-    const x =
-        16 * Math.pow(Math.sin(t), 3);
+for(let i=0;i<4;i++){
 
-    const y =
-        -(13 * Math.cos(t)
-        - 5 * Math.cos(2*t)
-        - 2 * Math.cos(3*t)
-        - Math.cos(4*t));
-
-    return {
-
-        x: width / 2 + x * scale,
-
-        y: height / 2 + y * scale
-
-    };
-
+    clouds.push({
+        x:Math.random()*W,
+        y:70+Math.random()*170,
+        w:180+Math.random()*180,
+        speed:.08+Math.random()*.12
+    });
 }
 
 
-/* --------------------------------
-   HEART PARTICLES
--------------------------------- */
+/* =========================
+   DRAW MOON
+========================= */
 
-const hearts = [];
+function drawMoon(){
 
-for (let i = 0; i < 220; i++) {
+    const mx=W*.77;
+    const my=H*.20;
 
-    const t =
-        Math.random() * Math.PI * 2;
+    /* Glow */
 
-    const pos =
-        heartPosition(
-            t,
-            Math.min(width, height) / 35
+    const glow=ctx.createRadialGradient(
+        mx,my,5,
+        mx,my,170
+    );
+
+    glow.addColorStop(
+        0,
+        "rgba(220,235,255,.32)"
+    );
+
+    glow.addColorStop(
+        1,
+        "rgba(150,180,255,0)"
+    );
+
+    ctx.fillStyle=glow;
+
+    ctx.beginPath();
+    ctx.arc(mx,my,170,0,Math.PI*2);
+    ctx.fill();
+
+
+    /* Moon */
+
+    const moon=ctx.createRadialGradient(
+        mx-15,my-15,5,
+        mx,my,50
+    );
+
+    moon.addColorStop(0,"#ffffff");
+    moon.addColorStop(.7,"#e8eeff");
+    moon.addColorStop(1,"#b9c6df");
+
+    ctx.fillStyle=moon;
+
+    ctx.beginPath();
+    ctx.arc(mx,my,50,0,Math.PI*2);
+    ctx.fill();
+
+
+    /* Craters */
+
+    ctx.fillStyle="rgba(100,115,145,.12)";
+
+    [
+        [-15,-10,7],
+        [15,15,6],
+        [20,-18,8],
+        [-20,20,4],
+        [0,-25,4]
+    ].forEach(c=>{
+
+        ctx.beginPath();
+
+        ctx.arc(
+            mx+c[0],
+            my+c[1],
+            c[2],
+            0,
+            Math.PI*2
         );
 
-    hearts.push({
-
-        x: Math.random() * width,
-
-        y: Math.random() * height,
-
-        targetX: pos.x,
-
-        targetY: pos.y,
-
-        size: Math.random() * 3 + 1,
-
-        delay: Math.random() * 3,
-
-        progress: 0
+        ctx.fill();
 
     });
-
 }
 
 
-/* --------------------------------
-   DRAW
--------------------------------- */
+/* =========================
+   CLOUD
+========================= */
 
-let start = performance.now();
+function drawCloud(c){
 
-function animate(time) {
+    ctx.fillStyle="rgba(100,115,145,.09)";
 
-    const elapsed =
-        (time - start) / 1000;
+    ctx.beginPath();
 
-    ctx.clearRect(
+    ctx.ellipse(
+        c.x,
+        c.y,
+        c.w,
+        30,
         0,
         0,
-        width,
-        height
+        Math.PI*2
+    );
+
+    ctx.fill();
+
+    ctx.beginPath();
+
+    ctx.ellipse(
+        c.x-c.w*.35,
+        c.y+5,
+        c.w*.35,
+        24,
+        0,
+        0,
+        Math.PI*2
+    );
+
+    ctx.fill();
+
+    ctx.beginPath();
+
+    ctx.ellipse(
+        c.x+c.w*.35,
+        c.y+5,
+        c.w*.4,
+        25,
+        0,
+        0,
+        Math.PI*2
+    );
+
+    ctx.fill();
+}
+
+
+/* =========================
+   GROUND
+========================= */
+
+function drawGround(){
+
+    const ground=ctx.createLinearGradient(
+        0,H*.63,
+        0,H
+    );
+
+    ground.addColorStop(0,"#14201d");
+    ground.addColorStop(1,"#020504");
+
+    ctx.fillStyle=ground;
+
+    ctx.fillRect(
+        0,
+        H*.63,
+        W,
+        H*.37
     );
 
 
-    /* Stars / particles */
+    /* Grass */
 
-    particles.forEach(p => {
+    ctx.strokeStyle="rgba(35,55,45,.65)";
+    ctx.lineWidth=1;
 
-        p.alpha += p.twinkle;
+    for(let i=0;i<180;i++){
 
-        if (p.alpha > 1 || p.alpha < .1) {
-            p.twinkle *= -1;
-        }
+        const x=Math.random()*W;
+        const y=H*.65+Math.random()*H*.35;
 
-        p.y -= p.speed;
+        ctx.beginPath();
 
-        if (p.y < 0) {
-            p.y = height;
-        }
+        ctx.moveTo(x,y);
+
+        ctx.lineTo(
+            x-3+Math.random()*6,
+            y-8-Math.random()*16
+        );
+
+        ctx.stroke();
+    }
+}
+
+
+/* =========================
+   PERSON WALKING
+========================= */
+
+function drawPerson(time){
+
+    /*
+       Walking position
+    */
+
+    const walkX=
+        W*.38+
+        Math.sin(time*.0012)*W*.035;
+
+    const feetY=H*.75;
+
+    const step=
+        Math.sin(time*.006)*12;
+
+
+    /* =====================
+       LONG SHADOW
+    ===================== */
+
+    /*
+       Moon is on right.
+       Shadow stretches to left.
+    */
+
+    const shadowX=
+        walkX-(W*.77-walkX)*3;
+
+    const shadowY=
+        feetY+25;
+
+
+    const shadow=
+        ctx.createLinearGradient(
+            walkX,
+            feetY,
+            shadowX,
+            shadowY
+        );
+
+    shadow.addColorStop(
+        0,
+        "rgba(0,0,0,.78)"
+    );
+
+    shadow.addColorStop(
+        .6,
+        "rgba(0,0,0,.35)"
+    );
+
+    shadow.addColorStop(
+        1,
+        "rgba(0,0,0,.02)"
+    );
+
+    ctx.fillStyle=shadow;
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        walkX-12,
+        feetY
+    );
+
+    ctx.lineTo(
+        shadowX-55,
+        shadowY
+    );
+
+    ctx.lineTo(
+        shadowX+55,
+        shadowY
+    );
+
+    ctx.lineTo(
+        walkX+12,
+        feetY
+    );
+
+    ctx.closePath();
+
+    ctx.fill();
+
+
+    /* =====================
+       PERSON
+    ===================== */
+
+    ctx.fillStyle="#05080d";
+
+
+    /* Legs */
+
+    ctx.strokeStyle="#05080d";
+    ctx.lineWidth=12;
+    ctx.lineCap="round";
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        walkX-7,
+        feetY-65
+    );
+
+    ctx.lineTo(
+        walkX-15+step,
+        feetY
+    );
+
+    ctx.moveTo(
+        walkX+7,
+        feetY-65
+    );
+
+    ctx.lineTo(
+        walkX+15-step,
+        feetY
+    );
+
+    ctx.stroke();
+
+
+    /* Body */
+
+    ctx.fillStyle="#06090f";
+
+    ctx.beginPath();
+
+    ctx.roundRect(
+        walkX-25,
+        feetY-155,
+        50,
+        92,
+        15
+    );
+
+    ctx.fill();
+
+
+    /* Head */
+
+    ctx.beginPath();
+
+    ctx.arc(
+        walkX,
+        feetY-180,
+        25,
+        0,
+        Math.PI*2
+    );
+
+    ctx.fill();
+
+
+    /* Hair */
+
+    ctx.beginPath();
+
+    ctx.arc(
+        walkX,
+        feetY-188,
+        26,
+        Math.PI,
+        Math.PI*2
+    );
+
+    ctx.fill();
+
+
+    /* =====================
+       ARMS
+    ===================== */
+
+    ctx.strokeStyle="#06090f";
+    ctx.lineWidth=11;
+
+    /*
+       Left arm
+    */
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        walkX-20,
+        feetY-135
+    );
+
+    ctx.lineTo(
+        walkX-40,
+        feetY-75
+    );
+
+    ctx.stroke();
+
+
+    /*
+       Right arm holding rose
+    */
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        walkX+20,
+        feetY-135
+    );
+
+    ctx.lineTo(
+        walkX+40,
+        feetY-82
+    );
+
+    ctx.lineTo(
+        walkX+28,
+        feetY-65
+    );
+
+    ctx.stroke();
+
+
+    /* =====================
+       ROSE STEM
+    ===================== */
+
+    const roseX=walkX+25;
+    const roseY=feetY-92;
+
+    ctx.strokeStyle="#273d2c";
+    ctx.lineWidth=3;
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+        roseX,
+        roseY
+    );
+
+    ctx.lineTo(
+        roseX+8,
+        roseY-48
+    );
+
+    ctx.stroke();
+
+
+    /* Leaf */
+
+    ctx.fillStyle="#35553b";
+
+    ctx.beginPath();
+
+    ctx.ellipse(
+        roseX+3,
+        roseY-22,
+        8,
+        4,
+        -.5,
+        0,
+        Math.PI*2
+    );
+
+    ctx.fill();
+
+
+    /* =====================
+       ROSE 🌹
+    ===================== */
+
+    const flowerX=roseX+9;
+    const flowerY=roseY-53;
+
+    ctx.shadowBlur=15;
+    ctx.shadowColor="rgba(255,50,70,.7)";
+
+    ctx.fillStyle="#b51f3a";
+
+    ctx.beginPath();
+
+    ctx.arc(
+        flowerX,
+        flowerY,
+        9,
+        0,
+        Math.PI*2
+    );
+
+    ctx.fill();
+
+
+    /* Rose petals */
+
+    ctx.fillStyle="#e52b48";
+
+    for(let i=0;i<5;i++){
+
+        const angle=
+            i*Math.PI*2/5;
+
+        ctx.beginPath();
+
+        ctx.arc(
+            flowerX+
+            Math.cos(angle)*5,
+            flowerY+
+            Math.sin(angle)*5,
+            5,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+    }
+
+    ctx.shadowBlur=0;
+}
+
+
+/* =========================
+   FLOATING PARTICLES
+========================= */
+
+const particles=[];
+
+for(let i=0;i<35;i++){
+
+    particles.push({
+        x:Math.random()*W,
+        y:H*.55+Math.random()*H*.4,
+        r:Math.random()*1.5+.3,
+        p:Math.random()*10
+    });
+}
+
+function drawParticles(time){
+
+    particles.forEach(p=>{
+
+        const glow=
+            .5+
+            Math.sin(time*.002+p.p)*.5;
+
+        ctx.shadowBlur=12;
+        ctx.shadowColor="rgba(190,215,255,.8)";
+
+        ctx.fillStyle=
+            `rgba(190,215,255,${glow*.4})`;
 
         ctx.beginPath();
 
         ctx.arc(
             p.x,
             p.y,
-            p.size,
+            p.r,
             0,
-            Math.PI * 2
+            Math.PI*2
         );
-
-        ctx.fillStyle =
-            `rgba(255,255,255,${p.alpha})`;
 
         ctx.fill();
 
+        p.y-=.08;
+
+        if(p.y<H*.5){
+            p.y=H*.9;
+        }
+
     });
 
-
-    /* Heart formation */
-
-    hearts.forEach(h => {
-
-        let progress =
-            Math.max(
-                0,
-                Math.min(
-                    1,
-                    (elapsed - h.delay) / 2
-                )
-            );
-
-        /* Smooth movement */
-
-        const ease =
-            progress * progress *
-            (3 - 2 * progress);
-
-        const x =
-            h.x +
-            (h.targetX - h.x) * ease;
-
-        const y =
-            h.y +
-            (h.targetY - h.y) * ease;
+    ctx.shadowBlur=0;
+}
 
 
-        /* Glow */
+/* =========================
+   MAIN ANIMATION
+========================= */
 
-        ctx.shadowBlur = 18;
+function animate(time){
 
-        ctx.shadowColor =
-            "rgba(255,40,100,.9)";
+    /* Sky */
 
+    const sky=ctx.createLinearGradient(
+        0,0,
+        0,H
+    );
+
+    sky.addColorStop(0,"#01030a");
+    sky.addColorStop(.45,"#071225");
+    sky.addColorStop(1,"#14231f");
+
+    ctx.fillStyle=sky;
+
+    ctx.fillRect(
+        0,
+        0,
+        W,
+        H
+    );
+
+
+    /* Stars */
+
+    stars.forEach(s=>{
+
+        ctx.fillStyle=
+            `rgba(225,235,255,${.25+Math.random()*.65})`;
 
         ctx.beginPath();
 
         ctx.arc(
-            x,
-            y,
-            h.size,
+            s.x*W,
+            s.y*H,
+            s.r,
             0,
-            Math.PI * 2
+            Math.PI*2
         );
 
-        ctx.fillStyle =
-            `rgba(255,70,120,${.25 + progress * .75})`;
-
         ctx.fill();
+    });
 
-        ctx.shadowBlur = 0;
+
+    drawMoon();
+
+
+    /* Clouds */
+
+    clouds.forEach(c=>{
+
+        c.x+=c.speed;
+
+        if(c.x-c.w>W){
+            c.x=-c.w;
+        }
+
+        drawCloud(c);
 
     });
 
 
-    /* Large glowing heart outline */
+    drawGround();
 
-    if (elapsed > 3) {
+    drawParticles(time);
 
-        const pulse =
-            1 +
-            Math.sin(elapsed * 4) * .03;
+    /*
+       Person starts walking
+       after a small delay.
+    */
 
-        ctx.save();
-
-        ctx.translate(
-            width / 2,
-            height / 2
-        );
-
-        ctx.scale(
-            pulse,
-            pulse
-        );
-
-        ctx.beginPath();
-
-        for (
-            let t = 0;
-            t <= Math.PI * 2;
-            t += .02
-        ) {
-
-            const x =
-                16 * Math.pow(Math.sin(t), 3)
-                * Math.min(width,height) / 35;
-
-            const y =
-                -(13 * Math.cos(t)
-                - 5 * Math.cos(2*t)
-                - 2 * Math.cos(3*t)
-                - Math.cos(4*t))
-                * Math.min(width,height) / 35;
-
-            if (t === 0) {
-                ctx.moveTo(x,y);
-            } else {
-                ctx.lineTo(x,y);
-            }
-
-        }
-
-        ctx.strokeStyle =
-            "rgba(255,80,130,.25)";
-
-        ctx.lineWidth = 1.5;
-
-        ctx.shadowBlur = 25;
-
-        ctx.shadowColor =
-            "rgba(255,40,100,.8)";
-
-        ctx.stroke();
-
-        ctx.restore();
-
+    if(time>1200){
+        drawPerson(time);
     }
 
 
     requestAnimationFrame(animate);
-
 }
 
 requestAnimationFrame(animate);
