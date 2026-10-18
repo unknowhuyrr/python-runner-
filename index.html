@@ -3,58 +3,383 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Moonlight 🌙</title>
+<title>Happy Birthday Jiya ❤️</title>
 
 <style>
 *{
+    margin:0;
+    padding:0;
     box-sizing:border-box;
 }
 
-html,body{
-    margin:0;
-    width:100%;
-    height:100%;
+body{
     overflow:hidden;
-    background:#02050c;
+    background:#05000d;
+    font-family:Arial,sans-serif;
+    color:white;
 }
 
-canvas{
-    position:fixed;
-    inset:0;
+.scene{
+    width:100vw;
+    height:100vh;
+    position:relative;
+    overflow:hidden;
+    background:
+    radial-gradient(circle at center,#39005f,#100019 50%,#020005);
+}
+
+/* STARS */
+
+.star{
+    position:absolute;
+    width:3px;
+    height:3px;
+    background:white;
+    border-radius:50%;
+    box-shadow:0 0 10px white;
+    animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+    from{opacity:.2}
+    to{opacity:1}
+}
+
+/* ALL MAIN CONTENT STAYS ABOVE DECORATIONS */
+
+.intro,
+.nameScene,
+.photoScene,
+.wishes,
+.final{
+    position:absolute;
+    width:90%;
+    max-width:900px;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+    z-index:50;
+}
+
+/* INTRO */
+
+.intro{
+    animation:intro 4s forwards;
+}
+
+.intro small{
+    font-size:18px;
+    letter-spacing:5px;
+    color:#ffd9f5;
+}
+
+.intro h1{
+    margin-top:20px;
+    font-size:clamp(45px,10vw,90px);
+    text-shadow:
+        0 0 15px white,
+        0 0 40px #ff00b7,
+        0 0 80px #ff00b7;
+}
+
+.intro .emoji{
+    font-size:42px;
+    margin-top:25px;
+}
+
+@keyframes intro{
+    0%{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(.5);
+    }
+    20%{opacity:1}
+    75%{opacity:1}
+    100%{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(1.2);
+    }
+}
+
+/* JIYA NAME */
+
+.nameScene{
+    opacity:0;
+    animation:nameReveal 4s 3.5s forwards;
+}
+
+.nameScene h1{
+    font-size:clamp(75px,18vw,170px);
+    letter-spacing:12px;
+    text-shadow:
+        0 0 15px white,
+        0 0 40px #ff48c7,
+        0 0 90px #ff009d;
+}
+
+.nameScene p{
+    font-size:23px;
+    letter-spacing:4px;
+    color:#ffe1f5;
+}
+
+@keyframes nameReveal{
+    0%{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(.2);
+    }
+    20%{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1.05);
+    }
+    35%{
+        transform:translate(-50%,-50%) scale(1);
+    }
+    80%{opacity:1}
+    100%{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(1.1);
+    }
+}
+
+/* PHOTO */
+
+.photoScene{
+    opacity:0;
+    animation:photoReveal 5s 7s forwards;
+}
+
+.photoFrame{
+    width:min(65vw,330px);
+    height:min(65vw,440px);
+    margin:auto;
+    padding:6px;
+    border-radius:25px;
+
+    background:linear-gradient(
+        135deg,
+        #fff,
+        #ff71ca,
+        #fff,
+        #ff00aa
+    );
+
+    box-shadow:
+        0 0 20px #fff,
+        0 0 50px #ff00aa,
+        0 0 100px #ff00aa;
+
+    animation:photoGlow 2s infinite alternate;
+}
+
+.photoFrame img{
     width:100%;
     height:100%;
+    object-fit:cover;
+    border-radius:20px;
+    display:block;
 }
 
-.quote{
-    position:absolute;
-    bottom:7%;
-    width:100%;
-    text-align:center;
-    color:#dce6ff;
-    font-family:Georgia,serif;
-    opacity:0;
-    animation:fadeIn 3s ease forwards;
-    animation-delay:8s;
-    text-shadow:0 0 18px rgba(180,210,255,.7);
+.photoTitle{
+    font-size:28px;
+    margin-top:18px;
+    text-shadow:0 0 20px #ff00aa;
 }
 
-.quote h1{
-    margin:0;
-    font-size:clamp(24px,7vw,44px);
-    font-weight:normal;
-    letter-spacing:4px;
-}
-
-.quote p{
-    margin:10px 0 0;
-    font-size:12px;
-    letter-spacing:2px;
-    opacity:.65;
-}
-
-@keyframes fadeIn{
+@keyframes photoGlow{
+    from{
+        box-shadow:
+        0 0 20px #fff,
+        0 0 40px #ff00aa;
+    }
     to{
+        box-shadow:
+        0 0 30px #fff,
+        0 0 80px #ff00aa;
+    }
+}
+
+@keyframes photoReveal{
+    0%{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(.6);
+    }
+
+    20%{
         opacity:1;
+        transform:translate(-50%,-50%) scale(1);
+    }
+
+    75%{opacity:1}
+
+    100%{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(1.05);
+    }
+}
+
+/* WISHES */
+
+.wishes{
+    opacity:0;
+    animation:wishes 6s 11s forwards;
+}
+
+.wishes h2{
+    font-size:42px;
+    margin-bottom:25px;
+    text-shadow:0 0 25px #ff39bd;
+}
+
+.wishes p{
+    font-size:21px;
+    line-height:2;
+    color:#ffe9f8;
+}
+
+@keyframes wishes{
+    0%{
+        opacity:0;
+        transform:translate(-50%,-50%) translateY(30px);
+    }
+
+    15%{
+        opacity:1;
+        transform:translate(-50%,-50%) translateY(0);
+    }
+
+    85%{opacity:1}
+
+    100%{
+        opacity:0;
+        transform:translate(-50%,-50%) translateY(-30px);
+    }
+}
+
+/* FINAL */
+
+.final{
+    opacity:0;
+    animation:finalScene 6s 16s forwards;
+}
+
+.final h1{
+    font-size:clamp(40px,10vw,85px);
+    text-shadow:
+        0 0 15px white,
+        0 0 40px #ff00aa,
+        0 0 90px #ff00aa;
+}
+
+.final h2{
+    font-size:clamp(60px,13vw,110px);
+    color:#ff8ddd;
+    margin:10px;
+    text-shadow:
+        0 0 20px #ff00aa,
+        0 0 60px #ff00aa;
+}
+
+.final .cake{
+    font-size:70px;
+    margin:15px;
+    animation:cake 1s infinite alternate;
+}
+
+.final p{
+    font-size:21px;
+}
+
+@keyframes cake{
+    to{transform:scale(1.12)}
+}
+
+@keyframes finalScene{
+    0%{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(.6);
+    }
+
+    15%{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1);
+    }
+
+    100%{opacity:1}
+}
+
+/* SIDE HEARTS */
+
+.heart{
+    position:absolute;
+    z-index:5;
+    font-size:28px;
+    animation:floatHeart 8s linear infinite;
+}
+
+@keyframes floatHeart{
+    0%{
+        transform:translateY(110vh);
+        opacity:0;
+    }
+
+    15%{opacity:.8}
+
+    100%{
+        transform:translateY(-120vh);
+        opacity:0;
+    }
+}
+
+/* SIDE BALLOONS */
+
+.balloon{
+    position:absolute;
+    z-index:4;
+    font-size:55px;
+    animation:floatBalloon 10s linear infinite;
+}
+
+@keyframes floatBalloon{
+    from{
+        transform:translateY(110vh);
+    }
+
+    to{
+        transform:translateY(-120vh);
+    }
+}
+
+/* FIREWORKS */
+
+.firework{
+    position:absolute;
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:white;
+    box-shadow:
+        0 0 10px white,
+        0 0 30px #ff00bb,
+        0 0 60px #ff00bb;
+    animation:firework 2s infinite;
+    z-index:3;
+}
+
+@keyframes firework{
+    0%{
+        transform:scale(.1);
+        opacity:1;
+    }
+
+    60%{
+        transform:scale(10);
+        opacity:1;
+    }
+
+    100%{
+        transform:scale(15);
+        opacity:0;
     }
 }
 </style>
@@ -62,909 +387,207 @@ canvas{
 
 <body>
 
-<canvas id="canvas"></canvas>
+<div class="scene">
 
-<div class="quote">
-    <h1>Walking Alone</h1>
-    <p>Some roses are carried for memories. 🌹</p>
+<!-- STARS -->
+<div id="stars"></div>
+
+
+<!-- INTRO -->
+
+<div class="intro">
+
+    <small>✨ A SPECIAL MESSAGE FOR ✨</small>
+
+    <h1>JIYA 💖</h1>
+
+    <div class="emoji">
+        🎁 ✨ 🎈
+    </div>
+
 </div>
+
+
+<!-- NAME REVEAL -->
+
+<div class="nameScene">
+
+    <p>💕 THIS DAY IS ALL ABOUT 💕</p>
+
+    <h1>JIYA</h1>
+
+    <p>Someone truly special ✨</p>
+
+</div>
+
+
+<!-- PHOTO -->
+
+<div class="photoScene">
+
+    <div class="photoFrame">
+        <img src="jiya.jpg" alt="Jiya">
+    </div>
+
+    <div class="photoTitle">
+        💖 Beautiful soul, beautiful smile 💖
+    </div>
+
+</div>
+
+
+<!-- WISHES -->
+
+<div class="wishes">
+
+    <h2>💝 Dear Jiya 💝</h2>
+
+    <p>
+        🌸 May your smile always stay this beautiful.<br>
+        ✨ May every dream of yours come true.<br>
+        🦋 May happiness follow you everywhere.<br>
+        💫 May your future shine brighter than the stars.<br>
+        ❤️ May every moment of your life be beautiful.
+    </p>
+
+</div>
+
+
+<!-- FINAL -->
+
+<div class="final">
+
+    <h1>🎉 HAPPY BIRTHDAY 🎉</h1>
+
+    <h2>JIYA ❤️</h2>
+
+    <div class="cake">🎂</div>
+
+    <p>
+        🥳 Keep smiling • Keep shining • Keep being YOU 💕
+    </p>
+
+    <div style="font-size:35px;margin-top:20px;">
+        🎈 🎁 💖 🌹 ✨ 🫶 🎊
+    </div>
+
+</div>
+
+</div>
+
 
 <script>
 
-const canvas=document.getElementById("canvas");
-const ctx=canvas.getContext("2d");
+/* STARS */
 
-let W,H;
+for(let i=0;i<100;i++){
 
-function resize(){
-    W=canvas.width=innerWidth;
-    H=canvas.height=innerHeight;
-}
+    let star=document.createElement("div");
 
-resize();
-addEventListener("resize",resize);
+    star.className="star";
 
+    star.style.left=Math.random()*100+"%";
+    star.style.top=Math.random()*100+"%";
 
-/* =========================
-        STARS
-========================= */
+    star.style.animationDelay=
+        Math.random()*3+"s";
 
-const stars=[];
-
-for(let i=0;i<220;i++){
-
-    stars.push({
-        x:Math.random(),
-        y:Math.random()*.65,
-        r:Math.random()*1.4+.2,
-        tw:Math.random()*6
-    });
+    document.getElementById("stars")
+        .appendChild(star);
 }
 
 
-/* =========================
-        BIRDS
-========================= */
+/* SIDE HEARTS */
 
-const birds=[];
+let hearts=[
+    "❤️","💖","💕","💗","💞","💘"
+];
 
-for(let i=0;i<7;i++){
+for(let i=0;i<20;i++){
 
-    birds.push({
-        x:-Math.random()*W,
-        y:H*.18+Math.random()*H*.25,
-        speed:.5+Math.random()*.5,
-        size:4+Math.random()*4,
-        phase:Math.random()*10
-    });
-}
+    let heart=document.createElement("div");
 
+    heart.className="heart";
 
-/* =========================
-        LEAVES
-========================= */
+    heart.innerHTML=
+        hearts[Math.floor(Math.random()*hearts.length)];
 
-const leaves=[];
+    /* ONLY LEFT OR RIGHT EDGE */
 
-for(let i=0;i<35;i++){
+    if(Math.random()<0.5){
 
-    leaves.push({
-        x:Math.random()*W,
-        y:H*.55+Math.random()*H*.4,
-        size:3+Math.random()*5,
-        speed:.8+Math.random()*1.5,
-        angle:Math.random()*6,
-        spin:.03+Math.random()*.06
-    });
-}
+        heart.style.left=
+            Math.random()*12+"%";
 
+    }else{
 
-/* =========================
-        CLOUDS
-========================= */
+        heart.style.left=
+            (88+Math.random()*12)+"%";
 
-const clouds=[];
-
-for(let i=0;i<5;i++){
-
-    clouds.push({
-        x:Math.random()*W,
-        y:70+Math.random()*170,
-        w:150+Math.random()*220,
-        speed:.12+Math.random()*.18
-    });
-}
-
-
-/* =========================
-          MOON
-========================= */
-
-function drawMoon(){
-
-    const mx=W*.76;
-    const my=H*.19;
-
-    /* Moon glow */
-
-    const glow=ctx.createRadialGradient(
-        mx,my,5,
-        mx,my,190
-    );
-
-    glow.addColorStop(
-        0,
-        "rgba(220,235,255,.35)"
-    );
-
-    glow.addColorStop(
-        1,
-        "rgba(130,170,255,0)"
-    );
-
-    ctx.fillStyle=glow;
-
-    ctx.beginPath();
-    ctx.arc(mx,my,190,0,Math.PI*2);
-    ctx.fill();
-
-
-    /* Moon */
-
-    const moon=ctx.createRadialGradient(
-        mx-15,my-15,5,
-        mx,my,52
-    );
-
-    moon.addColorStop(0,"#ffffff");
-    moon.addColorStop(.75,"#e6edff");
-    moon.addColorStop(1,"#b7c5dd");
-
-    ctx.fillStyle=moon;
-
-    ctx.beginPath();
-    ctx.arc(mx,my,52,0,Math.PI*2);
-    ctx.fill();
-
-
-    /* Craters */
-
-    ctx.fillStyle="rgba(100,115,145,.13)";
-
-    const craters=[
-        [-18,-12,7],
-        [17,15,6],
-        [20,-19,8],
-        [-20,20,4],
-        [2,-27,4]
-    ];
-
-    craters.forEach(c=>{
-
-        ctx.beginPath();
-
-        ctx.arc(
-            mx+c[0],
-            my+c[1],
-            c[2],
-            0,
-            Math.PI*2
-        );
-
-        ctx.fill();
-
-    });
-}
-
-
-/* =========================
-          CLOUDS
-========================= */
-
-function drawCloud(c){
-
-    ctx.fillStyle="rgba(120,135,165,.07)";
-
-    ctx.beginPath();
-
-    ctx.ellipse(
-        c.x,
-        c.y,
-        c.w,
-        28,
-        0,
-        0,
-        Math.PI*2
-    );
-
-    ctx.fill();
-
-    ctx.beginPath();
-
-    ctx.ellipse(
-        c.x-c.w*.35,
-        c.y+3,
-        c.w*.35,
-        23,
-        0,
-        0,
-        Math.PI*2
-    );
-
-    ctx.fill();
-
-    ctx.beginPath();
-
-    ctx.ellipse(
-        c.x+c.w*.35,
-        c.y+4,
-        c.w*.4,
-        25,
-        0,
-        0,
-        Math.PI*2
-    );
-
-    ctx.fill();
-}
-
-
-/* =========================
-          GROUND
-========================= */
-
-function drawGround(time){
-
-    const ground=ctx.createLinearGradient(
-        0,H*.60,
-        0,H
-    );
-
-    ground.addColorStop(0,"#16231f");
-    ground.addColorStop(1,"#020504");
-
-    ctx.fillStyle=ground;
-
-    ctx.fillRect(
-        0,
-        H*.60,
-        W,
-        H*.40
-    );
-
-
-    /* Moving grass */
-
-    ctx.strokeStyle="rgba(42,70,55,.65)";
-    ctx.lineWidth=1;
-
-    for(let i=0;i<280;i++){
-
-        const x=(i*47)%W;
-        const y=H*.64+(i*29)%Math.floor(H*.36);
-
-        const wind=
-            Math.sin(time*.002+x*.02)*5;
-
-        ctx.beginPath();
-
-        ctx.moveTo(x,y);
-
-        ctx.quadraticCurveTo(
-            x+wind,
-            y-12,
-            x+wind+3,
-            y-20
-        );
-
-        ctx.stroke();
-    }
-}
-
-
-/* =========================
-      ANIME CHARACTER
-========================= */
-
-function drawCharacter(time){
-
-    /*
-       Walking position
-    */
-
-    const x=
-        W*.39+
-        Math.sin(time*.0008)*W*.035;
-
-    const feet=H*.75;
-
-    const walk=
-        Math.sin(time*.006)*13;
-
-
-    /* =====================
-          LONG SHADOW
-    ===================== */
-
-    const moonX=W*.76;
-
-    const shadowX=
-        x-(moonX-x)*3.4;
-
-    const shadowY=
-        feet+18;
-
-
-    const shadowGradient=
-        ctx.createLinearGradient(
-            x,
-            feet,
-            shadowX,
-            shadowY
-        );
-
-    shadowGradient.addColorStop(
-        0,
-        "rgba(0,0,0,.82)"
-    );
-
-    shadowGradient.addColorStop(
-        .55,
-        "rgba(0,0,0,.45)"
-    );
-
-    shadowGradient.addColorStop(
-        1,
-        "rgba(0,0,0,0)"
-    );
-
-    ctx.fillStyle=shadowGradient;
-
-    ctx.beginPath();
-
-    ctx.moveTo(x-12,feet);
-    ctx.lineTo(shadowX-55,shadowY);
-    ctx.lineTo(shadowX+55,shadowY);
-    ctx.lineTo(x+12,feet);
-
-    ctx.closePath();
-
-    ctx.fill();
-
-
-    /* =====================
-       CHARACTER GLOW
-    ===================== */
-
-    ctx.shadowBlur=18;
-    ctx.shadowColor="rgba(190,215,255,.18)";
-
-
-    /* =====================
-            COAT
-    ===================== */
-
-    ctx.fillStyle="#05080e";
-
-    ctx.beginPath();
-
-    /*
-       Long anime-style coat
-    */
-
-    ctx.moveTo(x-19,feet-160);
-
-    ctx.quadraticCurveTo(
-        x-32,
-        feet-115,
-        x-42,
-        feet-35
-    );
-
-    ctx.lineTo(
-        x-17,
-        feet-40
-    );
-
-    ctx.lineTo(
-        x,
-        feet-55
-    );
-
-    ctx.lineTo(
-        x+18,
-        feet-40
-    );
-
-    ctx.lineTo(
-        x+42,
-        feet-35
-    );
-
-    ctx.quadraticCurveTo(
-        x+32,
-        feet-115,
-        x+19,
-        feet-160
-    );
-
-    ctx.closePath();
-
-    ctx.fill();
-
-
-    /* =====================
-             HEAD
-    ===================== */
-
-    ctx.shadowBlur=0;
-
-    ctx.fillStyle="#05070c";
-
-    ctx.beginPath();
-
-    ctx.ellipse(
-        x,
-        feet-185,
-        22,
-        29,
-        -.08,
-        0,
-        Math.PI*2
-    );
-
-    ctx.fill();
-
-
-    /* =====================
-          ANIME HAIR
-    ===================== */
-
-    ctx.beginPath();
-
-    ctx.moveTo(x-23,feet-193);
-
-    ctx.quadraticCurveTo(
-        x-15,
-        feet-222,
-        x+10,
-        feet-214
-    );
-
-    ctx.quadraticCurveTo(
-        x+28,
-        feet-204,
-        x+25,
-        feet-184
-    );
-
-    /* Hair spikes */
-
-    ctx.lineTo(x+36,feet-179);
-    ctx.lineTo(x+23,feet-174);
-    ctx.lineTo(x+30,feet-165);
-    ctx.lineTo(x+12,feet-176);
-
-    ctx.lineTo(x-5,feet-168);
-    ctx.lineTo(x-17,feet-180);
-    ctx.lineTo(x-30,feet-176);
-
-    ctx.closePath();
-
-    ctx.fill();
-
-
-    /* =====================
-          LEGS
-    ===================== */
-
-    ctx.strokeStyle="#04070c";
-    ctx.lineWidth=11;
-    ctx.lineCap="round";
-
-    ctx.beginPath();
-
-    /* Walking legs */
-
-    ctx.moveTo(
-        x-10,
-        feet-48
-    );
-
-    ctx.lineTo(
-        x-17+walk,
-        feet
-    );
-
-    ctx.moveTo(
-        x+10,
-        feet-48
-    );
-
-    ctx.lineTo(
-        x+17-walk,
-        feet
-    );
-
-    ctx.stroke();
-
-
-    /* =====================
-          LEFT ARM
-    ===================== */
-
-    ctx.strokeStyle="#05080e";
-    ctx.lineWidth=10;
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        x-20,
-        feet-140
-    );
-
-    ctx.lineTo(
-        x-45,
-        feet-83
-    );
-
-    ctx.stroke();
-
-
-    /* =====================
-       RIGHT ARM + ROSE
-    ===================== */
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        x+20,
-        feet-140
-    );
-
-    ctx.quadraticCurveTo(
-        x+40,
-        feet-115,
-        x+33,
-        feet-82
-    );
-
-    ctx.stroke();
-
-
-    /* Hand */
-
-    ctx.fillStyle="#080b11";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        x+33,
-        feet-80,
-        6,
-        0,
-        Math.PI*2
-    );
-
-    ctx.fill();
-
-
-    /* =====================
-            ROSE 🌹
-    ===================== */
-
-    const rx=x+38;
-    const ry=feet-122;
-
-    /* Stem */
-
-    ctx.strokeStyle="#294331";
-    ctx.lineWidth=2.5;
-
-    ctx.beginPath();
-
-    ctx.moveTo(
-        x+33,
-        feet-82
-    );
-
-    ctx.lineTo(
-        rx,
-        ry
-    );
-
-    ctx.stroke();
-
-
-    /* Leaf */
-
-    ctx.fillStyle="#385a3d";
-
-    ctx.beginPath();
-
-    ctx.ellipse(
-        rx-2,
-        ry+22,
-        9,
-        4,
-        -.5,
-        0,
-        Math.PI*2
-    );
-
-    ctx.fill();
-
-
-    /* Rose glow */
-
-    ctx.shadowBlur=18;
-    ctx.shadowColor="rgba(255,45,75,.75)";
-
-    ctx.fillStyle="#c52142";
-
-    ctx.beginPath();
-
-    ctx.arc(
-        rx,
-        ry-7,
-        9,
-        0,
-        Math.PI*2
-    );
-
-    ctx.fill();
-
-
-    /* Petals */
-
-    ctx.fillStyle="#ef3655";
-
-    for(let i=0;i<6;i++){
-
-        const a=i*Math.PI/3;
-
-        ctx.beginPath();
-
-        ctx.arc(
-            rx+Math.cos(a)*5,
-            ry-7+Math.sin(a)*5,
-            5,
-            0,
-            Math.PI*2
-        );
-
-        ctx.fill();
     }
 
-    ctx.shadowBlur=0;
+    heart.style.animationDelay=
+        Math.random()*8+"s";
+
+    document.querySelector(".scene")
+        .appendChild(heart);
 }
 
 
-/* =========================
-          BIRDS
-========================= */
+/* SIDE BALLOONS */
 
-function drawBirds(time){
+for(let i=0;i<10;i++){
 
-    birds.forEach((b,i)=>{
+    let balloon=document.createElement("div");
 
-        b.x+=b.speed;
+    balloon.className="balloon";
 
-        b.y+=Math.sin(
-            time*.002+b.phase
-        )*.18;
+    balloon.innerHTML="🎈";
 
-        if(b.x>W+50){
-            b.x=-50;
-            b.y=H*.18+Math.random()*H*.25;
-        }
+    if(Math.random()<0.5){
 
-        const flap=
-            Math.sin(time*.01+i)*5;
+        balloon.style.left=
+            Math.random()*10+"%";
 
-        ctx.strokeStyle="rgba(8,12,20,.85)";
-        ctx.lineWidth=1.8;
-        ctx.lineCap="round";
+    }else{
 
-        ctx.beginPath();
+        balloon.style.left=
+            (90+Math.random()*10)+"%";
 
-        ctx.moveTo(
-            b.x-b.size,
-            b.y
-        );
-
-        ctx.quadraticCurveTo(
-            b.x-b.size/2,
-            b.y-flap,
-            b.x,
-            b.y
-        );
-
-        ctx.quadraticCurveTo(
-            b.x+b.size/2,
-            b.y-flap,
-            b.x+b.size,
-            b.y
-        );
-
-        ctx.stroke();
-    });
-}
-
-
-/* =========================
-        FLYING LEAVES
-========================= */
-
-function drawLeaves(time){
-
-    leaves.forEach((l,i)=>{
-
-        l.x+=l.speed;
-
-        l.y+=
-            Math.sin(
-                time*.003+i
-            )*.8;
-
-        l.angle+=l.spin;
-
-        if(l.x>W+30){
-
-            l.x=-30;
-            l.y=H*.55+Math.random()*H*.35;
-        }
-
-        ctx.save();
-
-        ctx.translate(l.x,l.y);
-        ctx.rotate(l.angle);
-
-        ctx.fillStyle="rgba(91,112,75,.65)";
-
-        ctx.beginPath();
-
-        ctx.ellipse(
-            0,
-            0,
-            l.size,
-            l.size*.45,
-            0,
-            0,
-            Math.PI*2
-        );
-
-        ctx.fill();
-
-        ctx.restore();
-    });
-}
-
-
-/* =========================
-            FOG
-========================= */
-
-function drawFog(time){
-
-    const fogY=
-        H*.66+
-        Math.sin(time*.0004)*8;
-
-    const fog=ctx.createLinearGradient(
-        0,
-        fogY,
-        0,
-        H
-    );
-
-    fog.addColorStop(
-        0,
-        "rgba(170,190,190,.02)"
-    );
-
-    fog.addColorStop(
-        .5,
-        "rgba(170,190,190,.07)"
-    );
-
-    fog.addColorStop(
-        1,
-        "rgba(170,190,190,0)"
-    );
-
-    ctx.fillStyle=fog;
-
-    ctx.fillRect(
-        0,
-        fogY,
-        W,
-        H-fogY
-    );
-}
-
-
-/* =========================
-          ANIMATION
-========================= */
-
-function animate(time){
-
-    /* Sky */
-
-    const sky=ctx.createLinearGradient(
-        0,0,
-        0,H
-    );
-
-    sky.addColorStop(
-        0,
-        "#01030a"
-    );
-
-    sky.addColorStop(
-        .45,
-        "#071327"
-    );
-
-    sky.addColorStop(
-        1,
-        "#13221e"
-    );
-
-    ctx.fillStyle=sky;
-
-    ctx.fillRect(
-        0,0,W,H
-    );
-
-
-    /* Stars */
-
-    stars.forEach((s,i)=>{
-
-        const alpha=
-            .3+
-            Math.sin(
-                time*.002+s.tw
-            )*.3;
-
-        ctx.fillStyle=
-            `rgba(225,235,255,${alpha})`;
-
-        ctx.beginPath();
-
-        ctx.arc(
-            s.x*W,
-            s.y*H,
-            s.r,
-            0,
-            Math.PI*2
-        );
-
-        ctx.fill();
-    });
-
-
-    drawMoon();
-
-
-    /* Clouds */
-
-    clouds.forEach(c=>{
-
-        c.x+=c.speed;
-
-        if(c.x-c.w>W){
-            c.x=-c.w;
-        }
-
-        drawCloud(c);
-    });
-
-
-    drawGround(time);
-
-    drawBirds(time);
-
-    drawLeaves(time);
-
-    drawFog(time);
-
-    /*
-       Character appears
-       after the scene begins.
-    */
-
-    if(time>1200){
-        drawCharacter(time);
     }
 
+    balloon.style.animationDelay=
+        Math.random()*10+"s";
 
-    requestAnimationFrame(animate);
+    document.querySelector(".scene")
+        .appendChild(balloon);
 }
 
-requestAnimationFrame(animate);
+
+/* FIREWORKS */
+
+setTimeout(()=>{
+
+    for(let i=0;i<15;i++){
+
+        let firework=document.createElement("div");
+
+        firework.className="firework";
+
+        firework.style.left=
+            (5+Math.random()*90)+"%";
+
+        firework.style.top=
+            (5+Math.random()*30)+"%";
+
+        firework.style.animationDelay=
+            Math.random()*2+"s";
+
+        document.querySelector(".scene")
+            .appendChild(firework);
+    }
+
+},16000);
 
 </script>
 
